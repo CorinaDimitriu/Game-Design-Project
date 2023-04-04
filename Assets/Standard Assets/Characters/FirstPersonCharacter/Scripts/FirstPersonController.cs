@@ -1,5 +1,8 @@
 using System;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
@@ -42,6 +45,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
+        public int lives = 3;
+        public float proximityThreshold = 5.0f;
+        public GameObject enemy;
+
         // Use this for initialization
         private void Start()
         {
@@ -81,8 +88,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
-        }
 
+            //calculalte distance between player and enemy
+            float distance = Vector3.Distance(transform.position, enemy.transform.position);
+            if (distance < proximityThreshold)
+            {
+                LoseLife();
+            }
+        }
 
         private void PlayLandingSound()
         {
@@ -254,6 +267,92 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 return;
             }
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject == enemy)
+            {
+                Debug.Log("Triggered by " + other.gameObject.name);
+                float distance = Vector3.Distance(transform.position, enemy.transform.position);
+                Debug.Log("Distance to enemy: " + distance);
+
+                if (distance < proximityThreshold)
+                {
+                    Debug.Log("Enemy is close. Losing one life!");
+
+                    lives--;
+
+                    var canvas = GameObject.FindGameObjectsWithTag("Canvas")[0];
+                    Image[] lifeImages = canvas.GetComponentsInChildren<Image>().Where(img => img.name.Contains("Lives")).ToArray();
+                    Text text = canvas.GetComponentsInChildren<Text>().Where(txt => txt.name.Contains("Box")).ToArray()[0];
+                    text.text = "Oh no! A ghost! Yaikes!";
+                    Debug.Log("Lives: " + lives);
+                    
+                    if (lives < 0)
+                    {
+                        // move postion to 1.16, 1.22, 19.74
+                        transform.position = new Vector3(1.16f, 1.22f, 19.74f);
+                        // enable all lives
+                        lives = 3;
+                        for(int i = 0; i < lifeImages.Length; i++)
+                        {
+                            lifeImages[i].enabled = true;
+                        }
+                    }
+
+                    for (int i = 0; i < lifeImages.Length; i++)
+                    {
+                        if (i < lives)
+                        {
+                            lifeImages[i].enabled = true;
+                        }
+                        else
+                        {
+                            lifeImages[i].enabled = false;
+                            Debug.Log("Disabling life image");
+                        }
+                    }
+                }
+            }
+        }
+
+        private void LoseLife()
+        {
+            Debug.Log("Enemy is close. Losing one life!");
+
+            lives--;
+
+            var canvas = GameObject.FindGameObjectsWithTag("Canvas")[0];
+            Image[] lifeImages = canvas.GetComponentsInChildren<Image>().Where(img => img.name.Contains("Lives")).ToArray();
+            Text text = canvas.GetComponentsInChildren<Text>().Where(txt => txt.name.Contains("Box")).ToArray()[0];
+            text.text = "Oh no! A ghost! Yaikes!";
+            Debug.Log("Lives: " + lives);
+
+            if (lives < 0)
+            {
+                // move postion to 1.16, 1.22, 19.74
+                transform.position = new Vector3(1.16f, 1.22f, 19.74f);
+                // enable all lives
+                lives = 3;
+                for (int i = 0; i < lifeImages.Length; i++)
+                {
+                    lifeImages[i].enabled = true;
+                }
+            }
+
+            for (int i = 0; i < lifeImages.Length; i++)
+            {
+                if (i < lives)
+                {
+                    lifeImages[i].enabled = true;
+                }
+                else
+                {
+                    lifeImages[i].enabled = false;
+                    Debug.Log("Disabling life image");
+                }
+            }
         }
     }
 }
