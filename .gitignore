@@ -56,5 +56,7 @@ sysinfo.txt
 *.unitypackage
 *.tgz
 
+*.resS
+
 # Crashlytics generated file
 crashlytics-build.properties

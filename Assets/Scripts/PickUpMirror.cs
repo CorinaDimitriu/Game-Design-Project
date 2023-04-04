@@ -12,6 +12,7 @@ public class PickUpMirror : MonoBehaviour
 	public GameObject Mirror;
 	public GameObject MirrorTrigger;
 	public GameObject MirrorCopy;
+	public GameObject inventoryManager;
 
 	void Update()
 	{
@@ -36,7 +37,8 @@ public class PickUpMirror : MonoBehaviour
 				ActionText.SetActive(false);
 				ExtraCross.SetActive(false);
 				Mirror.SetActive(false);
-				MirrorCopy.SetActive(true);
+				//MirrorCopy.SetActive(true);
+				inventoryManager.GetComponent<GeneralKeyboardActions>().enabledObjects[1] = true;
 			}
 		}
 	}

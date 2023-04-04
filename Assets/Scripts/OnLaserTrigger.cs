@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class OnLaserTrigger : MonoBehaviour
 {
+    public GameObject laser;
     private void OnTriggerEnter(Collider other)
     {
-        this.GetComponent<AudioSource>().Play();
+        if (other.tag == "Mirror_Sensitive")
+        {
+            laser.SetActive(false);
+            laser.GetComponent<CapsuleCollider>().isTrigger = false;
+        }
+        else
+        {
+            this.GetComponent<AudioSource>().Play();
+        }
     }
 }

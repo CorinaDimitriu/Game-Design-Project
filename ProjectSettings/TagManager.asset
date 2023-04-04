@@ -9,6 +9,11 @@ TagManager:
   - Play
   - Sph
   - Waypoint
+  - Fire
+  - Mirror_Sensitive
+  - collected1
+  - collected2
+  - collected3
   layers:
   - Default
   - TransparentFX
