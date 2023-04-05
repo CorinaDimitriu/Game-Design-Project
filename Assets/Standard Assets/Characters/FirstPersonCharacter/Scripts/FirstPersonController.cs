@@ -269,10 +269,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
         }
 
+        //de preferat
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject == enemy)
             {
+                //yield return new WaitForSeconds(2);
                 Debug.Log("Triggered by " + other.gameObject.name);
                 float distance = Vector3.Distance(transform.position, enemy.transform.position);
                 Debug.Log("Distance to enemy: " + distance);
