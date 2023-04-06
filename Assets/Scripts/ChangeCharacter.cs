@@ -67,30 +67,40 @@ public class ChangeCharacter : MonoBehaviour
         if(CurrentPesrpsctive == "scooby")
         {
             RelatedObjects[0].SetActive(false);
+            RelatedObjects[1].SetActive(false);
+            RelatedObjects[2].SetActive(true);
             return;
         }
 
         if (CurrentPesrpsctive == "shaggy")
         {
             RelatedObjects[0].SetActive(false);
+            RelatedObjects[1].SetActive(false);
+            RelatedObjects[2].SetActive(true);
             return;
         }
 
         if (CurrentPesrpsctive == "daphne")
         {
             RelatedObjects[0].SetActive(true);
+            RelatedObjects[1].SetActive(false);
+            RelatedObjects[2].SetActive(true);
             return;
         }
 
         if (CurrentPesrpsctive == "fred")
         {
             RelatedObjects[0].SetActive(false);
+            RelatedObjects[1].SetActive(true);
+            RelatedObjects[2].SetActive(false);
             return;
         }
 
         if (CurrentPesrpsctive == "velma")
         {
             RelatedObjects[0].SetActive(false);
+            RelatedObjects[1].SetActive(false);
+            RelatedObjects[2].SetActive(true);
             return;
         }
     }

@@ -16,6 +16,11 @@ TagManager:
   - collected3
   - Canvas
   - Museum
+  - daphne
+  - velma
+  - scooby
+  - shaggy
+  - fred
   layers:
   - Default
   - TransparentFX

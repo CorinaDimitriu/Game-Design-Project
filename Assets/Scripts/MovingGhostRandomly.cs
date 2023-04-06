@@ -38,7 +38,7 @@ public class MovingGhostRandomly : MonoBehaviour
         waypointsMuseum = GameObject.FindGameObjectsWithTag("Museum");
         waypointInd = Random.Range(0, waypoints.Length);
         waypointIndMuseum = Random.Range(0, waypointsMuseum.Length);
-        state = MovingGhostRandomly.State.SEARCH_MUSEUM;
+        state = MovingGhostRandomly.State.PATROL;
         alive = true;
         StartCoroutine("FSM");
     }
