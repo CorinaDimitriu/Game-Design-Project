@@ -98,7 +98,6 @@ public class MovingGhostRandomly : MonoBehaviour
                 state = MovingGhostRandomly.State.PATROL;
             }
             else visited++;
-            Debug.Log(waypointIndMuseum);
         }
         else
         {
