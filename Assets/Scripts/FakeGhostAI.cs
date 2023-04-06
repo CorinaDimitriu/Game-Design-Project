@@ -1,23 +1,26 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.UI;
 
-public class Ghost_AI : MonoBehaviour
+public class FakeGhostAI : MonoBehaviour
 {
+    public int lives = 3;
+    public float proximityThreshold = 10.0f;
     public GameObject ThePlayer;
     public GameObject TheEnemy;
-    public float proximityThreshold = 10.0f;
     public bool AttackTrigger = false;
     public bool IsAttacking = false;
     public AudioSource HurtSound;
-    public GameObject TheFlash;
-    public GameObject changeCharacter;
     public AudioSource ScoobySound;
     public AudioSource VelmaSound;
     public AudioSource DaphneSound;
     public AudioSource ShaggySound;
+    public GameObject TheFlash;
+    public GameObject[] PlayerWaypoints;
+    public GameObject panel;
+    public GameObject changeCharacter;
     private GameObject canvas;
     private Text text;
     private bool flag = false;
@@ -27,12 +30,14 @@ public class Ghost_AI : MonoBehaviour
         canvas = GameObject.FindGameObjectsWithTag("Canvas")[0];
         text = canvas.GetComponentsInChildren<Text>().Where(txt => txt.name.Contains("Box")).ToArray()[0];
     }
-    void Update ()
-	{
-        if(AttackTrigger == true && IsAttacking == false)
+
+    private void Update()
+    {
+        if (AttackTrigger == true && IsAttacking == false)
         {
-        StartCoroutine(InflictDamage());
+            StartCoroutine(InflictDamage());
         }
+
         float distance = Vector3.Distance(ThePlayer.transform.position, TheEnemy.transform.position);
         if (distance < proximityThreshold && flag == false)
         {
@@ -52,52 +57,41 @@ public class Ghost_AI : MonoBehaviour
             default: break;
         }
         yield return new WaitForSeconds(3.0f);
-        text.text = "";
         flag = false;
     }
 
     void OnTriggerEnter(Collider col)
-	{
-	    if(col.tag == "Sph")
-	       AttackTrigger=true;
-	}
-
-	void OnTriggerExit(Collider col)
-	{
-	    if(col.tag == "Sph")
-	       AttackTrigger=false;
-	}
-
-
-    private void LoseLife()
     {
-        Image[] lifeImages = canvas.GetComponentsInChildren<Image>().Where(img => img.name.Contains("Lives")).ToArray();
+        if (col.tag == "Sph")
+            AttackTrigger = true;
+    }
 
-        for (int i = 0; i < lifeImages.Length; i++)
-        {
-            if ((i + 1) * 5 <= GlobalHealth.currentHealth)
-            {
-                lifeImages[i].enabled = true;
-            }
-            else
-            {
-                lifeImages[i].enabled = false;
-            }
-        }
+    void OnTriggerExit(Collider col)
+    {
+        if (col.tag == "Sph")
+            AttackTrigger = false;
+    }
+
+
+    private void ApplyDamage()
+    {
+        int waypointInd = Random.Range(0, PlayerWaypoints.Length);
+        GameObject chosenWaypoint = PlayerWaypoints[waypointInd];
+        ThePlayer.transform.position = chosenWaypoint.transform.position;
     }
 
     IEnumerator InflictDamage()
-	{
-		 IsAttacking = true;
-		 TheFlash.SetActive(true);
-		 HurtSound.Play();
-		 yield return new WaitForSeconds(0.2f);
-		 TheFlash.SetActive(false);
-		 yield return new WaitForSeconds(1.1f);
-		 GlobalHealth.currentHealth -= 5;
-         LoseLife();
-		 yield return new WaitForSeconds(1.5f);
-		 IsAttacking = false;
-         GetComponent<MovingGhostRandomly>().state = MovingGhostRandomly.State.PATROL;
+    {
+        IsAttacking = true;
+        TheFlash.SetActive(true);
+        HurtSound.Play();
+        yield return new WaitForSeconds(0.2f);
+        TheFlash.SetActive(false);
+        yield return new WaitForSeconds(1.1f);
+        //panel.GetComponent<Animation>().Play();
+        ApplyDamage();
+        yield return new WaitForSeconds(0.9f);
+        IsAttacking = false;
+        GetComponent<MovingGhostRandomlyFake>().state = MovingGhostRandomlyFake.State.PATROL;
     }
 }

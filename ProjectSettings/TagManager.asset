@@ -15,6 +15,7 @@ TagManager:
   - collected2
   - collected3
   - Canvas
+  - Museum
   layers:
   - Default
   - TransparentFX

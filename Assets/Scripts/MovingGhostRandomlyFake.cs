@@ -4,41 +4,34 @@ using UnityEngine;
 using UnityEngine.AI;
 
 //namespace UnityStandardAssets.Characters.ThirdPerson
-
-public class MovingGhostRandomly : MonoBehaviour
+public class MovingGhostRandomlyFake : MonoBehaviour
 {
     public NavMeshAgent agent;
-    public ThirdPersonCharacter character;
+    public ThirdPersonCharacterFake character;
     public GameObject Cylinderunu;
     public enum State
     {
         PATROL,
-        CHASE,
-        SEARCH_MUSEUM
+        CHASE
     }
     public State state;
     private bool alive;
     //variables for patrolling
     public GameObject[] waypoints;
-    public GameObject[] waypointsMuseum;
     public int waypointInd;
-    public int waypointIndMuseum;
     public float patrolSpeed = 4f;
-    private int visited = 0;
     //variables for chasing
     public float chaseSpeed = 5f;
     public GameObject target;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        character = GetComponent<ThirdPersonCharacter>();
+        character = GetComponent<ThirdPersonCharacterFake>();
         agent.updatePosition = true;
         agent.updateRotation = false;
         waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
-        waypointsMuseum = GameObject.FindGameObjectsWithTag("Museum");
         waypointInd = Random.Range(0, waypoints.Length);
-        waypointIndMuseum = Random.Range(0, waypointsMuseum.Length);
-        state = MovingGhostRandomly.State.SEARCH_MUSEUM;
+        state = MovingGhostRandomlyFake.State.PATROL;
         alive = true;
         StartCoroutine("FSM");
     }
@@ -54,9 +47,6 @@ public class MovingGhostRandomly : MonoBehaviour
                     break;
                 case State.CHASE:
                     Chase();
-                    break;
-                case State.SEARCH_MUSEUM:
-                    SearchMuseum();
                     break;
             }
             yield return null;
@@ -81,31 +71,6 @@ public class MovingGhostRandomly : MonoBehaviour
         }
     }
 
-    void SearchMuseum()
-    {
-        agent.speed = patrolSpeed;
-        if (Vector3.Distance(this.transform.position, waypointsMuseum[waypointIndMuseum].transform.position) >= 2)
-        {
-            agent.SetDestination(waypointsMuseum[waypointIndMuseum].transform.position);
-            character.Move(agent.desiredVelocity, false, false);
-        }
-        else if (Vector3.Distance(this.transform.position, waypointsMuseum[waypointIndMuseum].transform.position) < 2)
-        {
-            waypointIndMuseum = Random.Range(0, waypointsMuseum.Length);
-            if (visited + 1 >= waypointsMuseum.Length / 2.0)
-            {
-                visited = 0;
-                state = MovingGhostRandomly.State.PATROL;
-            }
-            else visited++;
-            Debug.Log(waypointIndMuseum);
-        }
-        else
-        {
-            character.Move(Vector3.zero, false, false);
-        }
-    }
-
     void Chase()
     {
         agent.speed = chaseSpeed;
@@ -117,7 +82,7 @@ public class MovingGhostRandomly : MonoBehaviour
     {
         if (col.tag == "Play")
         {
-            state = MovingGhostRandomly.State.CHASE;
+            state = MovingGhostRandomlyFake.State.CHASE;
             target = col.gameObject;
         }
     }

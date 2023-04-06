@@ -11,14 +11,12 @@ public class GlobalHealth : MonoBehaviour
 
      void Start()
      {
-       currentHealth = 5;
+       currentHealth = 15;
      }
 	 void Update ()
 	{
 	    internalHealth = currentHealth;
 		if(internalHealth <= 0)
 		   SceneManager.LoadScene(2);
-
-
 	}
 }

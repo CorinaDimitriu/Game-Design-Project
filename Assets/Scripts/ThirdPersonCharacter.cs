@@ -2,8 +2,8 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-namespace UnityStandardAssets.Characters.ThirdPerson
-{
+//namespace UnityStandardAssets.Characters.ThirdPerson
+
 	[RequireComponent(typeof(Rigidbody))]
 	[RequireComponent(typeof(CapsuleCollider))]
 	[RequireComponent(typeof(Animator))]
@@ -224,4 +224,3 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			}
 		}
 	}
-}
