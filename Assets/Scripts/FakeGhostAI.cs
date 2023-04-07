@@ -24,6 +24,8 @@ public class FakeGhostAI : MonoBehaviour
     private GameObject canvas;
     private Text text;
     private bool flag = false;
+    public GameObject Cookie;
+    public GameObject inventoryManager;
 
     private void Start()
     {
@@ -89,7 +91,13 @@ public class FakeGhostAI : MonoBehaviour
         TheFlash.SetActive(false);
         yield return new WaitForSeconds(1.1f);
         //panel.GetComponent<Animation>().Play();
-        ApplyDamage();
+        if(Cookie.activeSelf == false)
+            ApplyDamage();
+        else
+        {
+            inventoryManager.GetComponent<GeneralKeyboardActions>().enabledObjects[2] = false;
+            Cookie.SetActive(false);
+        }
         yield return new WaitForSeconds(0.9f);
         IsAttacking = false;
         GetComponent<MovingGhostRandomlyFake>().state = MovingGhostRandomlyFake.State.PATROL;

@@ -21,6 +21,8 @@ public class Ghost_AI : MonoBehaviour
     private GameObject canvas;
     private Text text;
     private bool flag = false;
+    public GameObject Cookie;
+    public GameObject inventoryManager;
 
     private void Start()
     {
@@ -94,8 +96,16 @@ public class Ghost_AI : MonoBehaviour
 		 yield return new WaitForSeconds(0.2f);
 		 TheFlash.SetActive(false);
 		 yield return new WaitForSeconds(1.1f);
-		 GlobalHealth.currentHealth -= 5;
-         LoseLife();
+         if (Cookie.activeSelf == false)
+         {
+            GlobalHealth.currentHealth -= 5;
+            LoseLife();
+         }
+         else
+         {
+            inventoryManager.GetComponent<GeneralKeyboardActions>().enabledObjects[2] = false;
+            Cookie.SetActive(false);
+         }
 		 yield return new WaitForSeconds(1.5f);
 		 IsAttacking = false;
          GetComponent<MovingGhostRandomly>().state = MovingGhostRandomly.State.PATROL;

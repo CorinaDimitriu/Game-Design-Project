@@ -21,6 +21,7 @@ TagManager:
   - scooby
   - shaggy
   - fred
+  - Snack
   layers:
   - Default
   - TransparentFX
