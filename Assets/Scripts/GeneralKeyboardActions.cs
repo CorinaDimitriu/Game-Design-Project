@@ -37,7 +37,7 @@ public class GeneralKeyboardActions : MonoBehaviour
     void Update()
     {
         int newlyAdded = enabledObjects.Count(ob => ob == true);
-        if (newlyAdded - prevCount > 0)
+        if (Math.Abs(newlyAdded - prevCount) > 0)
         {
             prevCount = newlyAdded;
             ChangeSprites();
@@ -150,11 +150,12 @@ public class GeneralKeyboardActions : MonoBehaviour
 
     void ChangeSprites()
     {
-        for(int ob = 1; ob <= noObjects; ob++)
-            if(enabledObjects[ob] == true)
-                if(current == ob)
+        for (int ob = 1; ob <= noObjects; ob++)
+            if (enabledObjects[ob] == true)
+            {
+                if (current == ob)
                 {
-                    buttons[ob].GetComponent<Image>().sprite = 
+                    buttons[ob].GetComponent<Image>().sprite =
                         Resources.Load<Sprite>("object" + current.ToString() + "_highlighted");
                 }
                 else
@@ -162,5 +163,19 @@ public class GeneralKeyboardActions : MonoBehaviour
                     buttons[ob].GetComponent<Image>().sprite =
                         Resources.Load<Sprite>("object" + ob.ToString());
                 }
+            }
+            else
+            {
+                if (current == ob)
+                {
+                    buttons[ob].GetComponent<Image>().sprite =
+                        Resources.Load<Sprite>("empty");
+                }
+                else
+                {
+                    buttons[ob].GetComponent<Image>().sprite =
+                        Resources.Load<Sprite>("transparent");
+                }
+            }
     }
 }

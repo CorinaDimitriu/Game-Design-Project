@@ -14,33 +14,39 @@ public class ScoobySnacksManager : MonoBehaviour
     public GameObject ActionText;
     public GameObject CookieCopy;
     public GameObject Cookie;
+    private bool flag = false;
 
     // Start is called before the first frame update
     void Start()
     {
         waypoints = GameObject.FindGameObjectsWithTag("Snack");
         waypointInd = Random.Range(0, waypoints.Length);
-        StartCoroutine(ManageSnacks());
     }
 
     void Update()
     {
         TheDistance = PlayerCasting.DistanceFromTarget;
+        if (inventoryManager.GetComponent<GeneralKeyboardActions>().enabledObjects[2] == false
+            && flag == false)
+        {
+            waypointInd = Random.Range(0, waypoints.Length);
+            StartCoroutine(ManageSnacks());
+        }
     }
 
     void OnMouseOver()
     {
-        if (TheDistance <= 15)
+        if (TheDistance <= 6)
         {
             ExtraCross.SetActive(true);
-            ActionText.GetComponent<Text>().text = "Pick up the Scooby Snack!";
+            ActionText.GetComponent<Text>().text = "Wow! Scooby Snack!";
             ActionDisplay.GetComponent<Text>().text = "[K]";
             ActionDisplay.SetActive(true);
             ActionText.SetActive(true);
         }
         if (Input.GetButtonDown("PickUp"))
         {
-            if (TheDistance <= 15)
+            if (TheDistance <= 6)
             {
                 this.GetComponent<BoxCollider>().enabled = false;
                 ActionDisplay.SetActive(false);
@@ -62,13 +68,10 @@ public class ScoobySnacksManager : MonoBehaviour
 
     IEnumerator ManageSnacks()
     {
-        while (true)
-        {
-            Cookie.SetActive(true);
-            Cookie.transform.position = waypoints[waypointInd].transform.position;
-            yield return new WaitForSeconds(30f);
-            while (inventoryManager.GetComponent<GeneralKeyboardActions>().enabledObjects[2] == true);
-            waypointInd = Random.Range(0, waypoints.Length);
-        }
+        flag = true;
+        Cookie.SetActive(true);
+        Cookie.transform.position = waypoints[waypointInd].transform.position;
+        yield return new WaitForSeconds(30f);
+        flag = false;
     }
 }

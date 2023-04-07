@@ -58,6 +58,7 @@ public class FakeGhostAI : MonoBehaviour
             case "shaggy": ShaggySound.Play(); text.text = "Zoinks!"; break;
             default: break;
         }
+        text.text = "";
         yield return new WaitForSeconds(3.0f);
         flag = false;
     }
