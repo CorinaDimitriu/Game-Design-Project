@@ -145,11 +145,16 @@ public class Ghost_AI : MonoBehaviour
          }
          //change ghost position to a random waypoint
          int randomIndex = Random.Range(0, waypoints.Length);
+         while(Vector3.Distance(waypoints[randomIndex].transform.position, ThePlayer.transform.position) < proximityThreshold)
+         {
+            randomIndex = Random.Range(0, waypoints.Length);
+         }
          //get the parent GameObject of TheEnemy
          GameObject parent = TheEnemy.transform.parent.gameObject;
          //get a random waypoint
          parent.transform.position = waypoints[randomIndex].transform.position;
          GetComponent<MovingGhostRandomly>().state = MovingGhostRandomly.State.PATROL;
          IsAttacking = false;
+         yield return new WaitForSeconds(0.9f);
     }
 }
