@@ -108,7 +108,6 @@ public class MovingGhostRandomly : MonoBehaviour
 
     void Chase()
     {
-        Debug.Log("Chase ------------ ");
         agent.speed = chaseSpeed;
         agent.SetDestination(target.transform.position);
         character.Move(agent.desiredVelocity, false, false);

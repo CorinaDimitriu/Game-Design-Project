@@ -24,6 +24,9 @@ public class Ghost_AI : MonoBehaviour
     public GameObject Cookie;
     public GameObject inventoryManager;
     public GameObject[] waypoints;
+    public Vector3 positionP;
+    public Vector3 positionE;
+    public bool flagPos = false;
 
 
     private void Start()
@@ -34,6 +37,13 @@ public class Ghost_AI : MonoBehaviour
     }
     void Update ()
 	{
+        if(IsAttacking)
+        {
+            TheEnemy.transform.parent.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            TheEnemy.transform.parent.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+            TheEnemy.transform.parent.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
+            TheEnemy.transform.parent.transform.position = positionE;
+        }
         if(AttackTrigger == true && IsAttacking == false)
         {
             StartCoroutine(InflictDamage());
@@ -63,14 +73,38 @@ public class Ghost_AI : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
 	{
-	    if(col.tag == "Sph")
-	       AttackTrigger=true;
+        if (col.tag == "Sph")
+        {
+            if (!flagPos)
+            {
+                flagPos = true;
+                positionP = ThePlayer.transform.position;
+                positionE = TheEnemy.transform.parent.transform.position;
+                //TheEnemy.transform.parent.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                ThePlayer.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                //TheEnemy.transform.parent.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+                //TheEnemy.transform.parent.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
+                //TheEnemy.transform.parent.transform.position = positionE;
+                ThePlayer.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+                ThePlayer.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
+                ThePlayer.transform.position = positionP;
+            }
+            AttackTrigger = true;
+        }
 	}
 
 	void OnTriggerExit(Collider col)
 	{
-	    if(col.tag == "Sph")
-	       AttackTrigger=false;
+        if (col.tag == "Sph")
+        {
+            AttackTrigger = false;
+            if(IsAttacking == false)
+            {
+                flagPos = false;
+                //TheEnemy.transform.parent.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                ThePlayer.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            }
+        }
 	}
 
 
@@ -98,7 +132,7 @@ public class Ghost_AI : MonoBehaviour
 		 HurtSound.Play();
 		 yield return new WaitForSeconds(0.2f);
 		 TheFlash.SetActive(false);
-		 yield return new WaitForSeconds(1.1f);
+		 yield return new WaitForSeconds(0.9f);
          if (Cookie.activeSelf == false)
          {
             GlobalHealth.currentHealth -= 5;
@@ -109,8 +143,6 @@ public class Ghost_AI : MonoBehaviour
             inventoryManager.GetComponent<GeneralKeyboardActions>().enabledObjects[2] = false;
             Cookie.SetActive(false);
          }
-		 yield return new WaitForSeconds(1.5f); //0.75f
-         IsAttacking = false;
          //change ghost position to a random waypoint
          int randomIndex = Random.Range(0, waypoints.Length);
          //get the parent GameObject of TheEnemy
@@ -118,5 +150,6 @@ public class Ghost_AI : MonoBehaviour
          //get a random waypoint
          parent.transform.position = waypoints[randomIndex].transform.position;
          GetComponent<MovingGhostRandomly>().state = MovingGhostRandomly.State.PATROL;
+         IsAttacking = false;
     }
 }

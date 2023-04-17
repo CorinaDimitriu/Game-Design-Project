@@ -22,7 +22,7 @@ TagManager:
   - shaggy
   - fred
   - Snack
-  - Waypoint1
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -36,7 +36,7 @@ TagManager:
   - 
   - WEAPON
   - PP
-  - 
+  - Enemy
   - 
   - 
   - 
