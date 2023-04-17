@@ -22,6 +22,7 @@ TagManager:
   - shaggy
   - fred
   - Snack
+  - Waypoint1
   layers:
   - Default
   - TransparentFX

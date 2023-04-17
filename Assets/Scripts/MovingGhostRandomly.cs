@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -36,8 +37,8 @@ public class MovingGhostRandomly : MonoBehaviour
         agent.updateRotation = false;
         waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
         waypointsMuseum = GameObject.FindGameObjectsWithTag("Museum");
-        waypointInd = Random.Range(0, waypoints.Length);
-        waypointIndMuseum = Random.Range(0, waypointsMuseum.Length);
+        waypointInd = UnityEngine.Random.Range(0, waypoints.Length);
+        waypointIndMuseum = UnityEngine.Random.Range(0, waypointsMuseum.Length);
         state = MovingGhostRandomly.State.PATROL;
         alive = true;
         StartCoroutine("FSM");
@@ -73,7 +74,7 @@ public class MovingGhostRandomly : MonoBehaviour
         }
         else if (Vector3.Distance(this.transform.position, waypoints[waypointInd].transform.position) < 2)
         {
-            waypointInd = Random.Range(0, waypoints.Length);
+            waypointInd = UnityEngine.Random.Range(0, waypoints.Length);
         }
         else
         {
@@ -91,7 +92,7 @@ public class MovingGhostRandomly : MonoBehaviour
         }
         else if (Vector3.Distance(this.transform.position, waypointsMuseum[waypointIndMuseum].transform.position) < 2)
         {
-            waypointIndMuseum = Random.Range(0, waypointsMuseum.Length);
+            waypointIndMuseum = UnityEngine.Random.Range(0, waypointsMuseum.Length);
             if (visited + 1 >= waypointsMuseum.Length / 2.0)
             {
                 visited = 0;
@@ -107,6 +108,7 @@ public class MovingGhostRandomly : MonoBehaviour
 
     void Chase()
     {
+        Debug.Log("Chase ------------ ");
         agent.speed = chaseSpeed;
         agent.SetDestination(target.transform.position);
         character.Move(agent.desiredVelocity, false, false);
@@ -124,7 +126,8 @@ public class MovingGhostRandomly : MonoBehaviour
     {
         if (col.tag == "Play")
         {
-            Cylinderunu.SetActive(false);
+            state = MovingGhostRandomly.State.PATROL;
+            //Cylinderunu.SetActive(false);
         }
     }
 }

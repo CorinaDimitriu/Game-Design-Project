@@ -23,17 +23,20 @@ public class Ghost_AI : MonoBehaviour
     private bool flag = false;
     public GameObject Cookie;
     public GameObject inventoryManager;
+    public GameObject[] waypoints;
+
 
     private void Start()
     {
         canvas = GameObject.FindGameObjectsWithTag("Canvas")[0];
         text = canvas.GetComponentsInChildren<Text>().Where(txt => txt.name.Contains("Box")).ToArray()[0];
+        waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
     }
     void Update ()
 	{
         if(AttackTrigger == true && IsAttacking == false)
         {
-        StartCoroutine(InflictDamage());
+            StartCoroutine(InflictDamage());
         }
         float distance = Vector3.Distance(ThePlayer.transform.position, TheEnemy.transform.position);
         if (distance < proximityThreshold && flag == false)
@@ -100,14 +103,20 @@ public class Ghost_AI : MonoBehaviour
          {
             GlobalHealth.currentHealth -= 5;
             LoseLife();
-         }
+        }
          else
          {
             inventoryManager.GetComponent<GeneralKeyboardActions>().enabledObjects[2] = false;
             Cookie.SetActive(false);
          }
-		 yield return new WaitForSeconds(1.5f);
-		 IsAttacking = false;
+		 yield return new WaitForSeconds(1.5f); //0.75f
+         IsAttacking = false;
+         //change ghost position to a random waypoint
+         int randomIndex = Random.Range(0, waypoints.Length);
+         //get the parent GameObject of TheEnemy
+         GameObject parent = TheEnemy.transform.parent.gameObject;
+         //get a random waypoint
+         parent.transform.position = waypoints[randomIndex].transform.position;
          GetComponent<MovingGhostRandomly>().state = MovingGhostRandomly.State.PATROL;
     }
 }

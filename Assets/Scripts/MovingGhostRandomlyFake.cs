@@ -90,7 +90,7 @@ public class MovingGhostRandomlyFake : MonoBehaviour
     {
         if (col.tag == "Play")
         {
-            Cylinderunu.SetActive(false);
+            //Cylinderunu.SetActive(false);
         }
     }
 }
