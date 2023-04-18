@@ -130,14 +130,24 @@ public class Ghost_AI : MonoBehaviour
 		 IsAttacking = true;
 		 TheFlash.SetActive(true);
 		 HurtSound.Play();
-		 yield return new WaitForSeconds(0.2f);
+         for(double angle = 0.0; angle < 60; angle += 6)
+         {
+            ThePlayer.transform.RotateAround(ThePlayer.transform.position, Vector3.up, 6);
+            yield return new WaitForSeconds(0.02f);
+         }
+		 //yield return new WaitForSeconds(0.2f);
 		 TheFlash.SetActive(false);
-		 yield return new WaitForSeconds(0.9f);
+         for (double angle = 60.0; angle < 360; angle += 6)
+         {
+            ThePlayer.transform.RotateAround(ThePlayer.transform.position, Vector3.up, 6);
+            yield return new WaitForSeconds(0.02f);
+         }
+          //yield return new WaitForSeconds(0.9f);
          if (Cookie.activeSelf == false)
          {
             GlobalHealth.currentHealth -= 5;
             LoseLife();
-        }
+         }
          else
          {
             inventoryManager.GetComponent<GeneralKeyboardActions>().enabledObjects[2] = false;
