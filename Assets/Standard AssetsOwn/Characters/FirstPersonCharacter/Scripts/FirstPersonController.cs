@@ -63,7 +63,7 @@ using UnityStandardAssets.Characters.FirstPerson;
         // Update is called once per frame
         private void Update()
         {
-            if(! TheEnemy.GetComponent<Ghost_AI>().IsAttacking)
+            if(TheEnemy.GetComponent<Ghost_AI>().unlockPlayer)
             {
                 RotateView();
                 // the jump state needs to read here to make sure it is not missed
@@ -98,7 +98,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 
         private void FixedUpdate()
         {
-            if (!TheEnemy.GetComponent<Ghost_AI>().IsAttacking)
+            if (TheEnemy.GetComponent<Ghost_AI>().unlockPlayer)
             {
                 float speed;
                 GetInput(out speed);

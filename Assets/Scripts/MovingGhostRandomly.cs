@@ -66,19 +66,22 @@ public class MovingGhostRandomly : MonoBehaviour
 
     void Patrol()
     {
-        agent.speed = patrolSpeed;
-        if (Vector3.Distance(this.transform.position, waypoints[waypointInd].transform.position) >= 2)
+        //if (!this.GetComponent<Ghost_AI>().IsAttacking)
         {
-            agent.SetDestination(waypoints[waypointInd].transform.position);
-            character.Move(agent.desiredVelocity, false, false);
-        }
-        else if (Vector3.Distance(this.transform.position, waypoints[waypointInd].transform.position) < 2)
-        {
-            waypointInd = UnityEngine.Random.Range(0, waypoints.Length);
-        }
-        else
-        {
-            character.Move(Vector3.zero, false, false);
+            agent.speed = patrolSpeed;
+            if (Vector3.Distance(this.transform.position, waypoints[waypointInd].transform.position) >= 2)
+            {
+                agent.SetDestination(waypoints[waypointInd].transform.position);
+                character.Move(agent.desiredVelocity, false, false);
+            }
+            else if (Vector3.Distance(this.transform.position, waypoints[waypointInd].transform.position) < 2)
+            {
+                waypointInd = UnityEngine.Random.Range(0, waypoints.Length);
+            }
+            else
+            {
+                character.Move(Vector3.zero, false, false);
+            }
         }
     }
 
@@ -108,9 +111,12 @@ public class MovingGhostRandomly : MonoBehaviour
 
     void Chase()
     {
-        agent.speed = chaseSpeed;
-        agent.SetDestination(target.transform.position);
-        character.Move(agent.desiredVelocity, false, false);
+        //if (!this.GetComponent<Ghost_AI>().IsAttacking)
+        {
+            agent.speed = chaseSpeed;
+            agent.SetDestination(target.transform.position);
+            character.Move(agent.desiredVelocity, false, false);
+        }
     }
 
     void OnTriggerEnter(Collider col)
