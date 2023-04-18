@@ -137,14 +137,14 @@ public class Ghost_AI : MonoBehaviour
             ThePlayer.transform.RotateAround(ThePlayer.transform.position, Vector3.up, 6);
             yield return new WaitForSeconds(0.02f);
         }
-        yield return new WaitForSeconds(0.2f);
+        //yield return new WaitForSeconds(0.2f);
         TheFlash.SetActive(false);
         for (double angle = 60.0; angle < 360; angle += 6)
         {
             ThePlayer.transform.RotateAround(ThePlayer.transform.position, Vector3.up, 6);
             yield return new WaitForSeconds(0.02f);
         }
-        yield return new WaitForSeconds(0.9f);
+        //yield return new WaitForSeconds(0.9f);
         if (Cookie.activeSelf == false)
         {
             GlobalHealth.currentHealth -= 5;
