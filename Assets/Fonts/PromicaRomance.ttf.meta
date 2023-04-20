@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: cc3ac92767bd6b54ea9c7823bd36e393
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - PromicaRomance
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: d4094a72ab6f397448254f872cb9d96e, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
