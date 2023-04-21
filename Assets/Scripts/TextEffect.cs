@@ -9,15 +9,15 @@ public class TextEffect : MonoBehaviour
 
     void Start()
     {
-        transform.GetChild(0).Find("Text_family").GetComponent<CanvasGroup>().alpha = 0.01f;
-        transform.GetChild(0).Find("Text_is").GetComponent<CanvasGroup>().alpha = 0.01f;
-        transform.GetChild(0).Find("Text_the").GetComponent<CanvasGroup>().alpha = 0.01f;
-        transform.GetChild(0).Find("Text_most").GetComponent<CanvasGroup>().alpha = 0.01f;
-        transform.GetChild(0).Find("Text_important").GetComponent<CanvasGroup>().alpha = 0.01f;
-        transform.GetChild(1).Find("Text_thing").GetComponent<CanvasGroup>().alpha = 0.01f;
-        transform.GetChild(1).Find("Text_in").GetComponent<CanvasGroup>().alpha = 0.01f;
-        transform.GetChild(1).Find("Text_the2").GetComponent<CanvasGroup>().alpha = 0.01f;
-        transform.GetChild(1).Find("Text_world").GetComponent<CanvasGroup>().alpha = 0.01f;
+        transform.GetChild(0).Find("Text_family").GetComponent<CanvasGroup>().alpha = 0.025f;
+        transform.GetChild(0).Find("Text_is").GetComponent<CanvasGroup>().alpha = 0.025f;
+        transform.GetChild(0).Find("Text_the").GetComponent<CanvasGroup>().alpha = 0.025f;
+        transform.GetChild(0).Find("Text_most").GetComponent<CanvasGroup>().alpha = 0.025f;
+        transform.GetChild(0).Find("Text_important").GetComponent<CanvasGroup>().alpha = 0.025f;
+        transform.GetChild(1).Find("Text_thing").GetComponent<CanvasGroup>().alpha = 0.025f;
+        transform.GetChild(1).Find("Text_in").GetComponent<CanvasGroup>().alpha = 0.025f;
+        transform.GetChild(1).Find("Text_the2").GetComponent<CanvasGroup>().alpha = 0.025f;
+        transform.GetChild(1).Find("Text_world").GetComponent<CanvasGroup>().alpha = 0.025f;
         for (int i = 0; i < 9; i++)
             Flag[i] = 1;
         Child = 0;
@@ -49,7 +49,7 @@ public class TextEffect : MonoBehaviour
         {
             Flag[Turn] = -1;
         }
-        word.alpha += Flag[Turn] * 0.01f;
+        word.alpha += Flag[Turn] * 0.025f;
         if (word.alpha == 0f)
         {
             Flag[Turn] = 1;
@@ -63,6 +63,6 @@ public class TextEffect : MonoBehaviour
                 Child = 0;
             }
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
     }
 }
