@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class TextEffect : MonoBehaviour
 {
-    private int[] flag = new int[9];
-    private int child;
-    private int turn;
+    private int[] Flag = new int[9];
+    private int Child;
+    private int Turn;
 
     void Start()
     {
@@ -19,9 +19,9 @@ public class TextEffect : MonoBehaviour
         transform.GetChild(1).Find("Text_the2").GetComponent<CanvasGroup>().alpha = 0.01f;
         transform.GetChild(1).Find("Text_world").GetComponent<CanvasGroup>().alpha = 0.01f;
         for (int i = 0; i < 9; i++)
-            flag[i] = 1;
-        child = 0;
-        turn = 0;
+            Flag[i] = 1;
+        Child = 0;
+        Turn = 0;
     }
 
     void Update()
@@ -32,7 +32,7 @@ public class TextEffect : MonoBehaviour
     IEnumerator Fade()
     {
         string text = "";
-        switch (turn)
+        switch (Turn)
         {
             case 0: text = "family"; break;
             case 1: text = "is"; break;
@@ -44,25 +44,25 @@ public class TextEffect : MonoBehaviour
             case 7: text = "the2"; break;
             case 8: text = "world"; break;
         }
-        CanvasGroup word = transform.GetChild(child).Find("Text_" + text).GetComponent<CanvasGroup>();
+        CanvasGroup word = transform.GetChild(Child).Find("Text_" + text).GetComponent<CanvasGroup>();
         if (word.alpha == 1f)
         {
-            flag[turn] = -1;
+            Flag[Turn] = -1;
         }
-        word.alpha += flag[turn] * 0.01f;
+        word.alpha += Flag[Turn] * 0.01f;
         if (word.alpha == 0f)
         {
-            flag[turn] = 1;
-            turn = (turn + 1) % 9;
-            if(turn > 4)
+            Flag[Turn] = 1;
+            Turn = (Turn + 1) % 9;
+            if(Turn > 4)
             {
-                child = 1;
+                Child = 1;
             }
             else
             {
-                child = 0;
+                Child = 0;
             }
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
     }
 }
