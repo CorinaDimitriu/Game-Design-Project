@@ -11,6 +11,9 @@ public class PickUpPicturePiece : MonoBehaviour
     public GameObject ExtraCross;
     public TextMeshProUGUI CountText;
     private static int Count;
+    public Canvas PuzzleCanvas;
+    [SerializeField]
+    private GameObject FPSController;
 
     void Start()
     {
@@ -49,14 +52,16 @@ public class PickUpPicturePiece : MonoBehaviour
 
     void SetCountText()
     {
-        if(Count == 1)
+        if (Count == 1)
         {
             CountText.transform.parent.gameObject.SetActive(true);
         }
         CountText.text = "Count: " + Count.ToString();
-        if (Count == 5)
+        if (Count == 1)
         {
             CountText.transform.parent.gameObject.SetActive(false);
+            FPSController.GetComponent<FirstPersonController>().m_MouseLook.lockCursor = false;
+            PuzzleCanvas.gameObject.SetActive(true);
         }
     }
 
