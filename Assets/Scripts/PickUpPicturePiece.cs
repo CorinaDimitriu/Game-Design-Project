@@ -27,7 +27,7 @@ public class PickUpPicturePiece : MonoBehaviour
 
     void OnMouseOver()
     {
-        if (TheDistance <= 1.8)
+        if (TheDistance <= 1.3)
         {
             ExtraCross.SetActive(true);
             ActionText.GetComponent<Text>().text = "Pick up picture piece";
@@ -37,7 +37,7 @@ public class PickUpPicturePiece : MonoBehaviour
         }
         if (Input.GetButtonDown("PickUp"))
         {
-            if (TheDistance <= 1.8)
+            if (TheDistance <= 1.3)
             {
                 GetComponent<BoxCollider>().enabled = false;
                 ActionDisplay.SetActive(false);
@@ -57,10 +57,10 @@ public class PickUpPicturePiece : MonoBehaviour
             CountText.transform.parent.gameObject.SetActive(true);
         }
         CountText.text = "Count: " + Count.ToString();
-        if (Count == 1)
+        if (Count == 5)
         {
             CountText.transform.parent.gameObject.SetActive(false);
-            FPSController.GetComponent<FirstPersonController>().m_MouseLook.lockCursor = false;
+            FPSController.GetComponent<FirstPersonController>().m_MouseLook.SetCursorLock(false);
             PuzzleCanvas.gameObject.SetActive(true);
         }
     }

@@ -9,7 +9,9 @@ public class ChangeCharacter : MonoBehaviour
     private Sprite un_highlighted;
     private Sprite highlighted;
     public string CurrentPesrpsctive;
-    public GameObject[] RelatedObjects = new GameObject[10];
+    public GameObject[] RelatedObjects = new GameObject[12];
+    [SerializeField]
+    private GameObject SafeboxTrigger;
 
     // Start is called before the first frame update
     void Start()
@@ -66,9 +68,21 @@ public class ChangeCharacter : MonoBehaviour
     {
         if(CurrentPesrpsctive == "scooby")
         {
-            RelatedObjects[0].SetActive(false);
-            RelatedObjects[1].SetActive(false);
-            RelatedObjects[2].SetActive(true);
+            RelatedObjects[0].SetActive(false); //mirror
+            RelatedObjects[1].SetActive(false); //mannequin
+            RelatedObjects[2].SetActive(true); //ghost mesh
+            RelatedObjects[3].SetActive(false); //quotes
+            RelatedObjects[4].SetActive(false); //safebox
+            RelatedObjects[5].SetActive(true); //piece1
+            RelatedObjects[6].SetActive(true); //piece2
+            RelatedObjects[7].SetActive(true); //piece3
+            RelatedObjects[8].SetActive(true); //piece4
+            RelatedObjects[9].SetActive(true); //piece5
+            RelatedObjects[10].SetActive(false); //code panel
+            if (SafeboxTrigger.GetComponent<OpenSafebox>().IsTextPrinted)
+            {
+                SafeboxTrigger.GetComponent<OpenSafebox>().ChangedCharacter();
+            }
             return;
         }
 
@@ -77,6 +91,18 @@ public class ChangeCharacter : MonoBehaviour
             RelatedObjects[0].SetActive(false);
             RelatedObjects[1].SetActive(false);
             RelatedObjects[2].SetActive(true);
+            RelatedObjects[3].SetActive(false);
+            RelatedObjects[4].SetActive(false);
+            RelatedObjects[5].SetActive(false);
+            RelatedObjects[6].SetActive(false);
+            RelatedObjects[7].SetActive(false);
+            RelatedObjects[8].SetActive(false);
+            RelatedObjects[9].SetActive(false);
+            RelatedObjects[10].SetActive(false);
+            if (SafeboxTrigger.GetComponent<OpenSafebox>().IsTextPrinted)
+            {
+                SafeboxTrigger.GetComponent<OpenSafebox>().ChangedCharacter();
+            }
             return;
         }
 
@@ -85,6 +111,18 @@ public class ChangeCharacter : MonoBehaviour
             RelatedObjects[0].SetActive(true);
             RelatedObjects[1].SetActive(false);
             RelatedObjects[2].SetActive(true);
+            RelatedObjects[3].SetActive(false);
+            RelatedObjects[4].SetActive(false);
+            RelatedObjects[5].SetActive(false);
+            RelatedObjects[6].SetActive(false);
+            RelatedObjects[7].SetActive(false);
+            RelatedObjects[8].SetActive(false);
+            RelatedObjects[9].SetActive(false);
+            RelatedObjects[10].SetActive(false);
+            if (SafeboxTrigger.GetComponent<OpenSafebox>().IsTextPrinted)
+            {
+                SafeboxTrigger.GetComponent<OpenSafebox>().ChangedCharacter();
+            }
             return;
         }
 
@@ -93,6 +131,18 @@ public class ChangeCharacter : MonoBehaviour
             RelatedObjects[0].SetActive(false);
             RelatedObjects[1].SetActive(true);
             RelatedObjects[2].SetActive(false);
+            RelatedObjects[3].SetActive(true);
+            RelatedObjects[4].SetActive(false);
+            RelatedObjects[5].SetActive(false);
+            RelatedObjects[6].SetActive(false);
+            RelatedObjects[7].SetActive(false);
+            RelatedObjects[8].SetActive(false);
+            RelatedObjects[9].SetActive(false);
+            RelatedObjects[10].SetActive(false);
+            if (SafeboxTrigger.GetComponent<OpenSafebox>().IsTextPrinted)
+            {
+                SafeboxTrigger.GetComponent<OpenSafebox>().ChangedCharacter();
+            }
             return;
         }
 
@@ -101,6 +151,21 @@ public class ChangeCharacter : MonoBehaviour
             RelatedObjects[0].SetActive(false);
             RelatedObjects[1].SetActive(false);
             RelatedObjects[2].SetActive(true);
+            RelatedObjects[3].SetActive(false);
+            RelatedObjects[4].SetActive(true);
+            RelatedObjects[5].SetActive(false);
+            RelatedObjects[6].SetActive(false);
+            RelatedObjects[7].SetActive(false);
+            RelatedObjects[8].SetActive(false);
+            RelatedObjects[9].SetActive(false);
+            if (SafeboxTrigger.GetComponent<OpenSafebox>().GetIsCodePanelOpened())
+            {
+                RelatedObjects[10].SetActive(true);
+            }
+            else
+            {
+                RelatedObjects[10].SetActive(false);
+            }
             return;
         }
     }

@@ -15,6 +15,7 @@ public class OpenSafebox : MonoBehaviour
     private float TheDistance;
     private bool IsCodePanelOpened = false;
     private bool IsWaiting = false;
+    public bool IsTextPrinted;
 
     void Update()
     {
@@ -106,6 +107,7 @@ public class OpenSafebox : MonoBehaviour
     {
         if (TheDistance <= 1.8)
         {
+            IsTextPrinted = true;
             ExtraCross.SetActive(true);
             ActionText.GetComponent<Text>().text = "Open the safe";
             ActionDisplay.GetComponent<Text>().text = "[E]";
@@ -121,6 +123,7 @@ public class OpenSafebox : MonoBehaviour
                 ExtraCross.SetActive(false);
                 CodePanel.SetActive(true);
                 IsCodePanelOpened = true;
+                IsTextPrinted = false;
             }
         }
     }
@@ -130,6 +133,7 @@ public class OpenSafebox : MonoBehaviour
         ExtraCross.SetActive(false);
         ActionDisplay.SetActive(false);
         ActionText.SetActive(false);
+        IsTextPrinted = false;
     }
 
     IEnumerator ColorButton(string label)
@@ -151,7 +155,7 @@ public class OpenSafebox : MonoBehaviour
     {
         CodeText.text += digit;
     }
-    
+
     public void DeleteDigit()
     {
         CodeText.text = CodeText.text.Substring(0, CodeText.text.Length - 1);
@@ -162,7 +166,7 @@ public class OpenSafebox : MonoBehaviour
         CodeText.text = "CORRECT";
         yield return new WaitForSeconds(1f);
     }
-    
+
     IEnumerator WrongMessage()
     {
         CodeText.text = "WRONG";
@@ -199,5 +203,20 @@ public class OpenSafebox : MonoBehaviour
     public void EnterOk()
     {
         StartCoroutine(Enter());
+    }
+
+    public bool GetIsCodePanelOpened()
+    {
+        return IsCodePanelOpened;
+    }
+
+    public void ChangedCharacter()
+    {
+        IsCodePanelOpened = false;
+        CodePanel.SetActive(false);
+        ExtraCross.SetActive(false);
+        ActionDisplay.SetActive(false);
+        ActionText.SetActive(false);
+        IsTextPrinted = false;
     }
 }

@@ -16,6 +16,8 @@ public class MovePuzzlePiece : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     private float x, y;
     [SerializeField]
     private GameObject FPSController;
+    [SerializeField]
+    private GameObject InventoryManager;
 
     void Start()
     {
@@ -78,7 +80,7 @@ public class MovePuzzlePiece : MonoBehaviour, IPointerDownHandler, IPointerUpHan
             transform.localPosition = new Vector3(CorrectPosition.transform.localPosition.x, CorrectPosition.transform.localPosition.y, CorrectPosition.transform.localPosition.z);
             IsPlaced = true;
             Count++;
-            if (Count == 1)
+            if (Count == 5)
             {
                 Canvas.transform.Find("Piece1").gameObject.SetActive(false);
                 Canvas.transform.Find("Piece2").gameObject.SetActive(false);
@@ -87,13 +89,14 @@ public class MovePuzzlePiece : MonoBehaviour, IPointerDownHandler, IPointerUpHan
                 Canvas.transform.Find("Piece5").gameObject.SetActive(false);
                 GameObject family = Canvas.transform.Find("Family").gameObject;
                 family.SetActive(true);
-                float scaleX = family.transform.localScale.x;
                 family.transform.LeanMoveLocal(new Vector2(0, 0), 1f);
                 family.transform.LeanScale(new Vector2(0.76f, 0.65f), 1f);
                 family.transform.LeanScaleX(0, 1f).delay = 2f;
                 Canvas.transform.Find("Back").gameObject.SetActive(true);
                 Canvas.transform.Find("Back").LeanScaleX(0.76f, 1f).delay = 3f;
-                FPSController.GetComponent<FirstPersonController>().m_MouseLook.lockCursor = true;
+                FPSController.GetComponent<FirstPersonController>().m_MouseLook.SetCursorLock(true);
+                Canvas.transform.LeanScaleX(0, 1f).delay = 5f;
+                InventoryManager.GetComponent<GeneralKeyboardActions>().enabledObjects[3] = true;
             }
         }
         else
