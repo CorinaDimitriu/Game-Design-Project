@@ -28,6 +28,7 @@ public class Ghost_AI : MonoBehaviour
     public Vector3 positionE;
     public bool flagPos = false;
     public bool unlockPlayer = true;
+    public GameObject fishingNet;
 
 
     private void Start()
@@ -74,7 +75,7 @@ public class Ghost_AI : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "Sph")
+        if (col.tag == "Sph" && !fishingNet.GetComponent<TriggerGhostStory>().IsLocked)
         {
             if (!flagPos)
             {
@@ -109,8 +110,9 @@ public class Ghost_AI : MonoBehaviour
     }
 
 
-    private void LoseLife()
+    public void LoseLife()
     {
+        Debug.Log("Lose");
         Image[] lifeImages = canvas.GetComponentsInChildren<Image>().Where(img => img.name.Contains("Lives")).ToArray();
 
         for (int i = 0; i < lifeImages.Length; i++)

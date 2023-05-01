@@ -11,6 +11,7 @@ public class MovingGhostRandomly : MonoBehaviour
     public NavMeshAgent agent;
     public ThirdPersonCharacter character;
     public GameObject Cylinderunu;
+    public GameObject fishingNet;
     public enum State
     {
         PATROL,
@@ -51,13 +52,45 @@ public class MovingGhostRandomly : MonoBehaviour
             switch (state)
             {
                 case State.PATROL:
-                    Patrol();
+                    if(!fishingNet.GetComponent<TriggerGhostStory>().IsLocked)
+                    {
+                        Patrol();
+                    }
+                    else
+                    {
+                        //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                        //GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+                        //GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
+                        //transform.position = new Vector3(-51.6300011f, transform.position.y, 7.76999998f);
+                        agent.SetDestination(new Vector3(-51.6300011f, transform.position.y, 7.76999998f));
+                        character.Move(agent.desiredVelocity, false, false);
+                    }
                     break;
                 case State.CHASE:
-                    Chase();
+                    if (!fishingNet.GetComponent<TriggerGhostStory>().IsLocked)
+                        Chase();
+                    else
+                    {
+                        //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                        //GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+                        //GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
+                        //transform.position = new Vector3(-51.6300011f, transform.position.y, 7.76999998f);
+                        agent.SetDestination(new Vector3(-51.6300011f, transform.position.y, 7.76999998f));
+                        character.Move(agent.desiredVelocity, false, false);
+                    }
                     break;
                 case State.SEARCH_MUSEUM:
-                    SearchMuseum();
+                    if (!fishingNet.GetComponent<TriggerGhostStory>().IsLocked)
+                        SearchMuseum();
+                    else
+                    {
+                        //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                        //GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+                        //GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
+                        //transform.position = new Vector3(-51.6300011f, transform.position.y, 7.76999998f);
+                        agent.SetDestination(new Vector3(-51.6300011f, transform.position.y, 7.76999998f));
+                        character.Move(agent.desiredVelocity, false, false);
+                    }
                     break;
             }
             yield return null;

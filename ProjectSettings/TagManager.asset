@@ -23,6 +23,41 @@ TagManager:
   - fred
   - Snack
   - Enemy
+  - coin
+  - fall0
+  - fall1
+  - fall2
+  - fall3
+  - fall4
+  - fall5
+  - fall6
+  - fall7
+  - fall8
+  - fall9
+  - fall10
+  - fall11
+  - fall12
+  - fall13
+  - fall14
+  - fall15
+  - fall16
+  - fall17
+  - fall18
+  - fall19
+  - fall20
+  - fall21
+  - fall22
+  - fall23
+  - fall24
+  - fall25
+  - fall26
+  - fall27
+  - fall28
+  - fall29
+  - fall30
+  - fall31
+  - icy_floor
+  - icy_ceiling
   layers:
   - Default
   - TransparentFX

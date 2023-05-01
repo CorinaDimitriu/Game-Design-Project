@@ -138,13 +138,15 @@ public class GeneralKeyboardActions : MonoBehaviour
 
         if(inventory.activeSelf == true && Input.GetButtonDown("Take")
             && enabledObjects[current] == true)
-            if(RealObjects[current].activeSelf == false)
             {
-                RealObjects[current].SetActive(true);
-            }
-            else
-            {
-                RealObjects[current].SetActive(false);
+                if (RealObjects[current].activeSelf == false)
+                {
+                    RealObjects[current].SetActive(true);
+                }
+                else
+                {
+                    RealObjects[current].SetActive(false);
+                }
             }
     }
 

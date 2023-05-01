@@ -6,8 +6,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
 {
     [RequireComponent(typeof (Rigidbody))]
     [RequireComponent(typeof (CapsuleCollider))]
+
     public class RigidbodyFirstPersonController : MonoBehaviour
     {
+        public bool isSliding = false;
+        private float horizontalInput, verticalInput;
+        public float slideForce;
+        public float slideTimer;
+        public float maxSlideTime;
         [Serializable]
         public class MovementSettings
         {
@@ -128,6 +134,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void Update()
         {
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            verticalInput = Input.GetAxisRaw("Vertical");
             RotateView();
 
             if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
@@ -141,6 +149,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             GroundCheck();
             Vector2 input = GetInput();
+            if (isSliding)
+            {
+                Vector3 inputDirection = this.transform.forward * verticalInput + this.transform.right * horizontalInput;
+                Debug.Log(inputDirection);
+                this.GetComponent<Rigidbody>().AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
+                slideTimer -= Time.deltaTime;
+                Debug.Log(slideTimer);
+                if (slideTimer <= 0)
+                    isSliding = false;
+            }
 
             if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded))
             {
