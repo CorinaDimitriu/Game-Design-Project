@@ -58,6 +58,7 @@ TagManager:
   - fall31
   - icy_floor
   - icy_ceiling
+  - Painting
   layers:
   - Default
   - TransparentFX

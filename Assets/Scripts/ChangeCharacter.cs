@@ -13,10 +13,17 @@ public class ChangeCharacter : MonoBehaviour
     [SerializeField]
     private GameObject SafeboxTrigger;
 
+    // For paintings room
+    public Material englishMessageMarble;
+    public Material greekMessageMarble;
+    private MeshRenderer meshRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
         CurrentPesrpsctive = "scooby";
+        // Get the mesh renderer from the marble plaque
+        meshRenderer = RelatedObjects[11].GetComponent<MeshRenderer>();
         ApplyChanges();
     }
 
@@ -79,6 +86,9 @@ public class ChangeCharacter : MonoBehaviour
             RelatedObjects[8].SetActive(true); //piece4
             RelatedObjects[9].SetActive(true); //piece5
             RelatedObjects[10].SetActive(false); //code panel
+            // For the paintings room
+            meshRenderer.material = greekMessageMarble;
+
             if (SafeboxTrigger.GetComponent<OpenSafebox>().IsTextPrinted)
             {
                 SafeboxTrigger.GetComponent<OpenSafebox>().ChangedCharacter();
@@ -99,6 +109,9 @@ public class ChangeCharacter : MonoBehaviour
             RelatedObjects[8].SetActive(false);
             RelatedObjects[9].SetActive(false);
             RelatedObjects[10].SetActive(false);
+            // For the paintings room
+            meshRenderer.material = greekMessageMarble;
+
             if (SafeboxTrigger.GetComponent<OpenSafebox>().IsTextPrinted)
             {
                 SafeboxTrigger.GetComponent<OpenSafebox>().ChangedCharacter();
@@ -119,6 +132,9 @@ public class ChangeCharacter : MonoBehaviour
             RelatedObjects[8].SetActive(false);
             RelatedObjects[9].SetActive(false);
             RelatedObjects[10].SetActive(false);
+            // For the paintings room
+            meshRenderer.material = greekMessageMarble;
+
             if (SafeboxTrigger.GetComponent<OpenSafebox>().IsTextPrinted)
             {
                 SafeboxTrigger.GetComponent<OpenSafebox>().ChangedCharacter();
@@ -139,6 +155,9 @@ public class ChangeCharacter : MonoBehaviour
             RelatedObjects[8].SetActive(false);
             RelatedObjects[9].SetActive(false);
             RelatedObjects[10].SetActive(false);
+            // For the paintings room
+            meshRenderer.material = greekMessageMarble;
+
             if (SafeboxTrigger.GetComponent<OpenSafebox>().IsTextPrinted)
             {
                 SafeboxTrigger.GetComponent<OpenSafebox>().ChangedCharacter();
@@ -157,7 +176,10 @@ public class ChangeCharacter : MonoBehaviour
             RelatedObjects[6].SetActive(false);
             RelatedObjects[7].SetActive(false);
             RelatedObjects[8].SetActive(false);
-            RelatedObjects[9].SetActive(false);
+            RelatedObjects[9].SetActive(false);            
+            // For the paintings room
+            meshRenderer.material = englishMessageMarble;
+
             if (SafeboxTrigger.GetComponent<OpenSafebox>().GetIsCodePanelOpened())
             {
                 RelatedObjects[10].SetActive(true);
