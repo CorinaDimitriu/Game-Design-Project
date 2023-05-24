@@ -24,6 +24,8 @@ public class GeneralKeyboardActions : MonoBehaviour
         prevCount = 0;
         for (int i = 0; i < 10; i++)
             enabledObjects[i] = false;
+        enabledObjects[5] = true;
+        enabledObjects[6] = true;
         for (int button = 1; button <= noObjects; button++)
         {
             buttons[button] = GameObject.Find("Object" + button.ToString()).GetComponent<Button>();

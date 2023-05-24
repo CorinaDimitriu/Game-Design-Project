@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TriggerGhostStory : MonoBehaviour
@@ -68,5 +69,6 @@ public class TriggerGhostStory : MonoBehaviour
         TheEnemy.transform.parent.GetComponent<ThirdPersonCharacter>().
             Move(TheEnemy.transform.parent.GetComponent<NavMeshAgent>().desiredVelocity, false, false);
         yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(3);
     }
 }

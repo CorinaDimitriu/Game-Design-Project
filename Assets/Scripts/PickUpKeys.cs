@@ -24,8 +24,8 @@ public class PickUpKeys : MonoBehaviour
 
     void Start ()
     {
-     count=0;
-     SetCountText();
+         count = 15;
+         SetCountText();
     }
 
 	void Update ()
@@ -60,7 +60,7 @@ public class PickUpKeys : MonoBehaviour
 	void SetCountText()
 	{
 	  CountText.text = "Count: " + count.ToString();
-      if (count >= 12)
+      if (count >= 15)
         {
             SceneManager.LoadScene(3);
         }

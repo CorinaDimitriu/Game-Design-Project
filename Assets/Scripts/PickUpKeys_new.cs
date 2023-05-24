@@ -23,8 +23,8 @@ public class PickUpKeys_new : MonoBehaviour
 
     void Start ()
     {
-     count=0;
-     SetCountText();
+         count = 15;
+         SetCountText();
     }
 
 	void Update ()
@@ -59,9 +59,9 @@ public class PickUpKeys_new : MonoBehaviour
 	void SetCountText()
 	{
 	  CountText.text = "Count: " + count.ToString();
-      if (count >= 12)
+      if (count >= 15)
         {
-            WinText.text = "Congratulations! Now find the Weapon!";
+            WinText.text = "";
             M9.SetActive(true);
             PistolTrigger.SetActive(true);
             FirstTrigger.SetActive(true);
