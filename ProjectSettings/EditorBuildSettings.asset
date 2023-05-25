@@ -12,12 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Game.unity
     guid: 91c28ddc67aae8b4da3768ec19995bf3
   - enabled: 1
-    path: Assets/Scenes/GameOver.unity
-    guid: 05d2f80cf168ec4458e79dee9b820d39
+    path: Assets/Scenes/GameOver 1.unity
+    guid: ec5d6d252cff80d4e968f3ba00e5b28d
   - enabled: 1
     path: Assets/Scenes/Congratulations.unity
     guid: f30359035dacdfe47a93e06187a2abfe
   - enabled: 1
     path: Assets/Scenes/Game_House.unity
     guid: ecad175d3081d6d47aab1b8f2093911f
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 05d2f80cf168ec4458e79dee9b820d39
   m_configObjects: {}

@@ -149,7 +149,7 @@ public class Ghost_AI : MonoBehaviour
         //yield return new WaitForSeconds(0.9f);
         if (Cookie.activeSelf == false)
         {
-            GlobalHealth.currentHealth -= 5;
+            //GlobalHealth.currentHealth -= 5;
             LoseLife();
         }
         else

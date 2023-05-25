@@ -20,7 +20,7 @@ public class TriggerGhostStory : MonoBehaviour
     }
     IEnumerator LoseLife()
     {
-        GlobalHealth.currentHealth -= 5;
+        //GlobalHealth.currentHealth -= 5;
         Image[] lifeImages = canvas.GetComponentsInChildren<UnityEngine.UI.Image>().Where(img => img.name.Contains("Lives")).ToArray();
         TheFlash.SetActive(true);
         for (int i = 0; i < lifeImages.Length; i++)

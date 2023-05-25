@@ -27,6 +27,6 @@ public class GhostDeath : MonoBehaviour
       StatusCheck=2;
       TheEnemy.transform.position = new Vector3(transform.position.x, -3, transform.position.z);
       yield return new WaitForSeconds(1);
-      SceneManager.LoadScene(2);
+      SceneManager.LoadScene(5);
 	}
 }
